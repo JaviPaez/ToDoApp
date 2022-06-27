@@ -26,6 +26,27 @@ const App = () => {
         setTodos(changedTodos);
     }
 
+    const todoToogleCompleted = (todoId) => {
+
+        const changedTodos = todos.map(todo => {
+
+            const todoEdit = {
+                ...todo,
+                completed: !todo.completed
+            }
+
+            if (todo.id === todoId) {
+                return todoEdit
+            }
+
+            else {
+                return todo
+            }
+        })
+
+        setTodos(changedTodos);
+    }
+
     return (
         <div className='container mt-4'>
             <div className='row'>
@@ -33,6 +54,7 @@ const App = () => {
                     <ToDoList
                         todos={todos}
                         todoDelete={todoDelete}
+                        todoToogleCompleted={todoToogleCompleted}
                     />
                 </div>
                 <div className='col-4'>
