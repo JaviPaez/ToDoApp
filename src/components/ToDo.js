@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDo = ({ todo }) => {
+const ToDo = ({ todo, todoDelete }) => {
 
     return (
         <div className='card mt-2'>
@@ -15,10 +15,12 @@ const ToDo = ({ todo }) => {
                 <hr />
                 <div className='d-flex justify-content-end'>
                     <button className='btn btn-sm btn-outline-primary mr-2'>Editar</button>
-                    <button className='btn btn-sm btn-outline-danger'>Eliminar</button>
+                    <button
+                        onClick={() => todoDelete(todo.id)}
+                        className='btn btn-sm btn-outline-danger'>Eliminar</button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
