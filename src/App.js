@@ -27,22 +27,33 @@ const App = () => {
     }
 
     const todoToogleCompleted = (todoId) => {
+        //Una forma
+        // const changedTodos = todos.map(todo => {
 
-        const changedTodos = todos.map(todo => {
+        //     const todoEdit = {
+        //         ...todo,
+        //         completed: !todo.completed
+        //     }
 
-            const todoEdit = {
-                ...todo,
-                completed: !todo.completed
-            }
+        //     if (todo.id === todoId) {
+        //         return todoEdit
+        //     }
 
-            if (todo.id === todoId) {
-                return todoEdit
-            }
+        //     else {
+        //         return todo
+        //     }
+        // })   
 
-            else {
-                return todo
-            }
-        })
+        //Otra forma
+        // const changedTodos = todos.map(todo => (
+        //     todo.id === todoId
+        //         ? { ...todo, completed: !todo.completed }
+        //         : todo
+        // ))
+
+        const changedTodos = todos.map(todo => todo.id === todoId
+            ? { ...todo, completed: !todo.completed }
+            : todo)
 
         setTodos(changedTodos);
     }
