@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const initialFormValues = {
     title: '',
     description: '',
 }
 
-const ToDoForm = ({ todoAdd }) => {
+const ToDoForm = ({ todoAdd, todoEdit, todoUpdate, setTodoEdit }) => {
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const { title, description } = formValues;
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+
+    useEffect(() => {
+        if (todoEdit) setFormValues(todoEdit);
+    }, [todoEdit]);
 
     const handleInputChange = (e) => {
         const changedFormValues = {
@@ -33,10 +37,17 @@ const ToDoForm = ({ todoAdd }) => {
             return;
         }
 
-        //Agregar tarea
-        todoAdd(formValues);
-        setFormValues(initialFormValues);
-        setSuccessMessage('Tarea agregada con éxito');
+        if (todoEdit) {
+            //Actualizar tarea
+            todoUpdate(formValues);
+            setSuccessMessage('Tarea actualizada con éxito');
+        }
+        else {
+            //Agregar tarea
+            todoAdd(formValues);
+            setSuccessMessage('Tarea agregada con éxito');
+            setFormValues(initialFormValues);
+        }
 
         setTimeout(() => {
             setSuccessMessage(null);
@@ -46,7 +57,16 @@ const ToDoForm = ({ todoAdd }) => {
 
     return (
         <div>
-            <h1>Nueva tarea</h1>
+            <h1>{todoEdit ? 'Editar tarea' : 'Nueva tarea'}</h1>
+            {
+                todoEdit &&
+                <button
+                    onClick={() => setTodoEdit(null)}
+                    className='btn btn-sm btn-warning mb-2'
+                >Cancelar edición
+                </button>
+            }
+
             <form
                 onSubmit={handleSubmit}>
                 <input
@@ -66,7 +86,7 @@ const ToDoForm = ({ todoAdd }) => {
                 ></textarea>
                 <button
                     className='btn btn-primary btn-block mt-2'>
-                    Agregar tarea
+                    {todoEdit ? 'Actualizar tarea' : 'Agregar tarea'}
                 </button>
             </form>
 
