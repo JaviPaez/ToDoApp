@@ -66,8 +66,8 @@ const App = () => {
         }
 
         const changedTodos = [
+            newTodo,
             ...todos,
-            newTodo
         ]
 
         setTodos(changedTodos);
