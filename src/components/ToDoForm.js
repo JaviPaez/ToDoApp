@@ -14,6 +14,7 @@ const ToDoForm = ({ todoAdd, todoEdit, todoUpdate, setTodoEdit }) => {
 
     useEffect(() => {
         if (todoEdit) setFormValues(todoEdit);
+        else setFormValues(initialFormValues);
     }, [todoEdit]);
 
     const handleInputChange = (e) => {
